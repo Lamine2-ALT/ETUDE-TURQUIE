@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Préinscription Turquie — Études Supérieures</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red:    #c0392b;
+      --cream:  #fdf6ec;
+      --gold:   #d4a935;
+      --dark:   #1a1209;
+      --muted:  #7a6a52;
+      --border: #e8dcc8;
+      --white:  #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--dark);
+      color: var(--white);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: auto;
+      padding: 3rem 2rem 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .flag-strip {
+      display: flex;
+      gap: 0;
+      height: 6px;
+      margin-bottom: 2rem;
+    }
+    .flag-strip span { flex: 1; }
+    .flag-strip span:nth-child(1) { background: #e30a17; }
+    .flag-strip span:nth-child(2) { background: #ffffff; }
+    .flag-strip span:nth-child(3) { background: #e30a17; }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.12;
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+    h1 em { color: var(--gold); font-style: normal; }
+
+    .header-sub {
+      font-weight: 300;
+      font-size: 1rem;
+      color: #c9b99a;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+    .badge {
+      border: 1px solid rgba(212,169,53,0.4);
+      color: var(--gold);
+      padding: 0.3rem 0.8rem;
+      border-radius: 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2.5rem 2rem 4rem;
+    }
+
+    /* ── INFO CARDS ── */
+    .info-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .info-card .ic-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .info-card .ic-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .info-card .ic-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.05);
+    }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .form-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .field-group { margin-bottom: 1.4rem; }
+    .field-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.45rem;
+      color: var(--dark);
+    }
+    .field-group label .req { color: var(--red); margin-left: 2px; }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--cream);
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus {
+      border-color: var(--gold);
+      background: var(--white);
+    }
+
+    /* radio budget */
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+    .budget-opt {
+      position: relative;
+    }
+    .budget-opt input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .budget-opt label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.18s;
+      background: var(--cream);
+      text-align: center;
+      margin: 0;
+    }
+    .budget-opt label .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .budget-opt label .currency {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.06em;
+    }
+    .budget-opt input:checked + label {
+      border-color: var(--gold);
+      background: #fdf3da;
+      box-shadow: 0 0 0 3px rgba(212,169,53,0.18);
+    }
+    .budget-opt label:hover {
+      border-color: var(--gold);
+    }
+
+    /* passport radio */
+    .passport-row {
+      display: flex;
+      gap: 1rem;
+    }
+    .passport-opt {
+      position: relative;
+      flex: 1;
+    }
+    .passport-opt input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0; height: 0;
+    }
+    .passport-opt label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.9rem;
+      background: var(--cream);
+      transition: all 0.18s;
+      margin: 0;
+    }
+    .passport-opt input:checked + label {
+      border-color: var(--gold);
+      background: #fdf3da;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.8rem 0;
+    }
+
+    /* terms */
+    .terms-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .terms-check input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--gold);
+    }
+
+    /* submit */
+    .submit-btn {
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #2e200a; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .submit-btn .btn-inner { display: flex; align-items: center; justify-content: center; gap: 0.6rem; }
+
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-msg {
+      color: var(--red);
+      font-size: 0.8rem;
+      margin-top: 0.3rem;
+      display: none;
+    }
+
+    .note-box {
+      background: #f5f0e8;
+      border-left: 3px solid var(--gold);
+      padding: 0.9rem 1.1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 1.5rem;
+    }
+    .note-box strong { color: var(--dark); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 540px) {
+      .form-card { padding: 1.5rem; }
+      .budget-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="flag-strip">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="header-inner">
+    <p class="eyebrow">🇹🇷 Programme d'accompagnement — Turquie 2025/2026</p>
+    <h1>Étudier en <em>Turquie</em>,<br>commencez ici.</h1>
+    <p class="header-sub">Un facilitateur expert vous accompagne de A à Z pour obtenir votre préinscription dans une université turque. Remplissez ce formulaire gratuit — vous ne payez qu'après l'obtention de votre préinscription.</p>
+    <div class="badges">
+      <span class="badge">✅ Paiement après résultat</span>
+      <span class="badge">🎓 Universités reconnues</span>
+      <span class="badge">🛂 Accompagnement visa</span>
+      <span class="badge">🇸🇳 Équipe locale</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="info-row">
+    <div class="info-card">
+      <span class="ic-label">Frais d'accompagnement</span>
+      <span class="ic-value">300 000 FCFA</span>
+      <span class="ic-note">Payable après préinscription</span>
+    </div>
+    <div class="info-card">
+      <span class="ic-label">Délai moyen</span>
+      <span class="ic-value">2 – 4 semaines</span>
+      <span class="ic-note">Selon le dossier</span>
+    </div>
+    <div class="info-card">
+      <span class="ic-label">Prochaine session</span>
+      <span class="ic-value">Sept. 2025</span>
+      <span class="ic-note">Places limitées</span>
+    </div>
+  </div>
+
+  <div class="form-card">
+    <h2 class="form-title">Votre dossier de candidature</h2>
+    <p class="form-desc">Remplissez ce formulaire en moins de 2 minutes. Un conseiller vous contactera sous 24 h pour confirmer votre dossier.</p>
+
+    <form id="leadForm" novalidate>
+
+      <!-- Prénom & Nom -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div class="field-group">
+          <label>Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" placeholder="Ex : Fatou" required />
+          <span class="error-msg" id="err-prenom">Veuillez saisir votre prénom.</span>
+        </div>
+        <div class="field-group">
+          <label>Nom de famille <span class="req">*</span></label>
+          <input type="text" id="nom" placeholder="Ex : Diallo" required />
+          <span class="error-msg" id="err-nom">Veuillez saisir votre nom.</span>
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="field-group">
+        <label>Numéro WhatsApp <span class="req">*</span></label>
+        <input type="tel" id="telephone" placeholder="Ex : 77 123 45 67" required />
+        <span class="error-msg" id="err-telephone">Numéro invalide.</span>
+      </div>
+
+      <!-- Email -->
+      <div class="field-group">
+        <label>Adresse e-mail</label>
+        <input type="email" id="email" placeholder="exemple@gmail.com" />
+      </div>
+
+      <!-- Niveau d'études -->
+      <div class="field-group">
+        <label>Niveau d'études actuel <span class="req">*</span></label>
+        <select id="niveau" required>
+          <option value="" disabled selected>— Choisir —</option>
+          <option>Terminale (Bac en cours)</option>
+          <option>Bac obtenu</option>
+          <option>Bac+1</option>
+          <option>Bac+2 (DEUG / DUT / BTS)</option>
+          <option>Bac+3 (Licence)</option>
+          <option>Bac+4</option>
+          <option>Bac+5 (Master)</option>
+          <option>Doctorat</option>
+        </select>
+        <span class="error-msg" id="err-niveau">Veuillez sélectionner votre niveau.</span>
+      </div>
+
+      <!-- Domaine souhaité -->
+      <div class="field-group">
+        <label>Domaine d'études souhaité <span class="req">*</span></label>
+        <select id="domaine" required>
+          <option value="" disabled selected>— Choisir —</option>
+          <option>Médecine / Sciences de la santé</option>
+          <option>Ingénierie / Informatique</option>
+          <option>Commerce / Économie</option>
+          <option>Droit</option>
+          <option>Architecture</option>
+          <option>Sciences sociales</option>
+          <option>Langues / Littérature</option>
+          <option>Autre</option>
+        </select>
+        <span class="error-msg" id="err-domaine">Veuillez sélectionner un domaine.</span>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Budget -->
+      <div class="field-group">
+        <label>Quel montant êtes-vous prêt(e) à investir ? <span class="req">*</span></label>
+        <div class="budget-grid">
+          <div class="budget-opt">
+            <input type="radio" name="budget" id="b1" value="250000" />
+            <label for="b1">
+              <span class="amount">250 000</span>
+              <span class="currency">FCFA</span>
+            </label>
+          </div>
+          <div class="budget-opt">
+            <input type="radio" name="budget" id="b2" value="300000" />
+            <label for="b2">
+              <span class="amount">300 000</span>
+              <span class="currency">FCFA</span>
+            </label>
+          </div>
+          <div class="budget-opt">
+            <input type="radio" name="budget" id="b3" value="350000" />
+            <label for="b3">
+              <span class="amount">350 000</span>
+              <span class="currency">FCFA</span>
+            </label>
+          </div>
+          <div class="budget-opt">
+            <input type="radio" name="budget" id="b4" value="400000" />
+            <label for="b4">
+              <span class="amount">400 000</span>
+              <span class="currency">FCFA</span>
+            </label>
+          </div>
+        </div>
+        <span class="error-msg" id="err-budget">Veuillez choisir un montant.</span>
+      </div>
+
+      <!-- Passeport -->
+      <div class="field-group">
+        <label>Avez-vous un passeport valide ? <span class="req">*</span></label>
+        <div class="passport-row">
+          <div class="passport-opt">
+            <input type="radio" name="passeport" id="p-oui" value="Oui" />
+            <label for="p-oui">✅ Oui, j'ai un passeport</label>
+          </div>
+          <div class="passport-opt">
+            <input type="radio" name="passeport" id="p-non" value="Non" />
+            <label for="p-non">❌ Non, pas encore</label>
+          </div>
+        </div>
+        <span class="error-msg" id="err-passeport">Veuillez répondre à cette question.</span>
+      </div>
+
+      <hr class="divider"/>
+
+      <!-- Terms -->
+      <div class="terms-check">
+        <input type="checkbox" id="terms" required />
+        <label for="terms" style="margin:0;font-size:0.82rem;color:var(--muted);">
+          Je comprends que les frais d'accompagnement (<strong>300 000 FCFA</strong>) ne seront exigibles qu'après l'obtention officielle de ma préinscription. Mes données sont utilisées uniquement pour me mettre en contact avec le facilitateur.
+        </label>
+      </div>
+      <span class="error-msg" id="err-terms">Vous devez accepter les conditions.</span>
+
+      <button type="submit" class="submit-btn" id="submitBtn">
+        <span class="btn-inner">
+          <span class="spinner" id="spinner"></span>
+          <span id="btn-text">Envoyer ma candidature →</span>
+        </span>
+      </button>
+
+      <div class="note-box">
+        <strong>🔒 Paiement uniquement après résultat.</strong> Vous ne déboursez rien aujourd'hui. Le facilitateur vous contactera, traitera votre dossier, et les frais ne seront demandés qu'une fois votre préinscription turque confirmée.
+      </div>
+
+    </form>
+  </div>
+</main>
+
+<footer>
+  © 2025 — Programme Études Turquie &nbsp;|&nbsp; Vos données sont confidentielles et ne sont pas revendues à des tiers.
+</footer>
+
+<script>
+  // ── CONFIG ──────────────────────────────────────────────────────────────
+  // Remplacez cette URL par celle de votre Apps Script déployé
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/VOTRE_SCRIPT_ID/exec";
+  // ────────────────────────────────────────────────────────────────────────
+
+  const form = document.getElementById("leadForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const spinner = document.getElementById("spinner");
+  const btnText = document.getElementById("btn-text");
+
+  function showError(id, show) {
+    document.getElementById(id).style.display = show ? "block" : "none";
+  }
+
+  function validate() {
+    let ok = true;
+    const prenom = document.getElementById("prenom").value.trim();
+    const nom = document.getElementById("nom").value.trim();
+    const tel = document.getElementById("telephone").value.trim();
+    const niveau = document.getElementById("niveau").value;
+    const domaine = document.getElementById("domaine").value;
+    const budget = document.querySelector('input[name="budget"]:checked');
+    const passeport = document.querySelector('input[name="passeport"]:checked');
+    const terms = document.getElementById("terms").checked;
+
+    showError("err-prenom", !prenom); if (!prenom) ok = false;
+    showError("err-nom", !nom); if (!nom) ok = false;
+    showError("err-telephone", !tel || tel.replace(/\D/g,"").length < 8); if (!tel || tel.replace(/\D/g,"").length < 8) ok = false;
+    showError("err-niveau", !niveau); if (!niveau) ok = false;
+    showError("err-domaine", !domaine); if (!domaine) ok = false;
+    showError("err-budget", !budget); if (!budget) ok = false;
+    showError("err-passeport", !passeport); if (!passeport) ok = false;
+    showError("err-terms", !terms); if (!terms) ok = false;
+    return ok;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+
+    submitBtn.disabled = true;
+    spinner.style.display = "block";
+    btnText.textContent = "Envoi en cours…";
+
+    const payload = {
+      prenom:    document.getElementById("prenom").value.trim(),
+      nom:       document.getElementById("nom").value.trim(),
+      telephone: document.getElementById("telephone").value.trim(),
+      email:     document.getElementById("email").value.trim(),
+      niveau:    document.getElementById("niveau").value,
+      domaine:   document.getElementById("domaine").value,
+      budget:    document.querySelector('input[name="budget"]:checked').value,
+      passeport: document.querySelector('input[name="passeport"]:checked').value,
+      date:      new Date().toLocaleString("fr-FR"),
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      // Redirect to confirmation page
+      window.location.href = "merci.html?nom=" + encodeURIComponent(payload.prenom);
+    } catch (err) {
+      alert("Une erreur réseau est survenue. Veuillez réessayer.");
+      submitBtn.disabled = false;
+      spinner.style.display = "none";
+      btnText.textContent = "Envoyer ma candidature →";
+    }
+  });
+</script>
+
+</body>
+</html>
