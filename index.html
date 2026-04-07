@@ -604,18 +604,26 @@
     try {
       await fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      // Redirect to confirmation page
-      window.location.href = "merci.html?nom=" + encodeURIComponent(payload.prenom);
-    } catch (err) {
-      alert("Une erreur réseau est survenue. Veuillez réessayer.");
-      submitBtn.disabled = false;
-      spinner.style.display = "none";
-      btnText.textContent = "Envoyer ma candidature →";
-    }
+        try {
+  const response = await fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const result = await response.json();
+  if (result.success === true) {
+    window.location.href = "merci.html?nom=" + encodeURIComponent(payload.prenom);
+  } else {
+    throw new Error(result.error || "Erreur inconnue du serveur");
+  }
+} catch (err) {
+  alert("Erreur : " + err.message + "\nVérifiez la console (F12).");
+  console.error(err);
+  submitBtn.disabled = false;
+  spinner.style.display = "none";
+  btnText.textContent = "Envoyer ma candidature →";
+}
   });
 </script>
 
